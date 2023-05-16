@@ -105,6 +105,37 @@ int k=-10;
 
 
     }
+  
+    public static boolean isAnagram(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+
+        Map<Character, Integer> charFrequency = new HashMap<>();
+
+        // Count the frequency of characters in string s
+        for (char c : s.toCharArray()) {
+            charFrequency.put(c, charFrequency.getOrDefault(c, 0) + 1);
+        }
+
+        // Decrement the frequency of characters in string t
+        for (char c : t.toCharArray()) {
+            int count = charFrequency.getOrDefault(c, 0);
+            if (count == 0) {
+                return false; // Character not present in string s or frequency exhausted
+            }
+            charFrequency.put(c, count - 1);
+        }
+
+        // Check if all characters in string s are exhausted in string t
+        for (int count : charFrequency.values()) {
+            if (count != 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     private static boolean isAnagram(String s, String t) {
         HashMap<Character,Integer>map=new HashMap<>();
